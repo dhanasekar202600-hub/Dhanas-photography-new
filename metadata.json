@@ -1,0 +1,6 @@
+{
+  "name": "Dhanas Photography | Premium Wedding Photography by Dhanasekar",
+  "description": "Luxury wedding photography, bridal portraits, candid celebrations, and cinematic wedding films by Dhanasekar.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
