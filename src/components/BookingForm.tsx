@@ -62,15 +62,49 @@ Hello Dhanasekar, please share availability and pricing for these dates. Thank y
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    // Simulate brief processing
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-    }, 600);
-  };
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setIsSubmitting(true);
+
+  try {
+    const response = await fetch(
+      'https://api.emailjs.com/api/v1.0/email/send',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          service_id: 'service_7vvdks4',
+          template_id: 'template_3xp7tuh',
+          user_id: 'SCrNlfcMX2KsF7tJI',
+          template_params: {
+            name: formData.name,
+            phone: formData.phone,
+            email: formData.email,
+            weddingDate: formData.weddingDate,
+            eventLocation: formData.eventLocation,
+            eventType: formData.eventType,
+            eventDuration: formData.eventDuration,
+            guestCount: formData.guestCount,
+            notes: formData.notes,
+          },
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
+
+    setSubmitted(true);
+  } catch (error) {
+    console.error('EmailJS error:', error);
+    alert('Enquiry failed. Please try again.');
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   return (
     <div className={`w-full ${isModal ? 'p-2' : ''}`}>
